@@ -39,7 +39,7 @@ export default function RootLayout({
 					disableTransitionOnChange
 				>
 					<Provider>
-						<main>{children}</main>
+						<main className='text-foreground bg-background'>{children}</main>
 					</Provider>
 				</ThemeProvider>
 			</body>

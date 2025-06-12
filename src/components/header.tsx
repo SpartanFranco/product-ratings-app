@@ -8,13 +8,15 @@ export const Header = async ({ children }: { children?: React.ReactNode }) => {
 	const session = await auth();
 
 	return (
-		<header className='bg-background flex flex-wrap items-center justify-between gap-4 border-b px-4 py-1 shadow-sm dark:shadow-[0_2px_15px_1px_rgba(255,255,255,0.08)]'>
+		<header className='flex flex-wrap items-center justify-between gap-4 border-b px-4 py-1 shadow-sm dark:shadow-[0_2px_15px_1px_rgba(255,255,255,0.08)]'>
 			{children}
 
 			{session?.user ? (
-				<UserDropdown session={session} />
+				<section className='animate-in fade-in slide-in-from-right-30 duration-700'>
+					<UserDropdown session={session} />
+				</section>
 			) : (
-				<h1 className='text-foreground truncate text-base font-semibold capitalize'>
+				<h1 className='truncate text-base font-semibold capitalize'>
 					Invitado
 				</h1>
 			)}

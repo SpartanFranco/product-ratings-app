@@ -135,3 +135,7 @@ button {
 .shadow-light {
 	@apply dark:shadow-[0_2px_12px_rgba(255,255,255,0.05)];
 }
+
+.animate-fade-in {
+	@apply animate-in fade-in-0 duration-500;
+}

@@ -15,7 +15,7 @@ export const CardImage = ({ product }: Props) => {
 		product;
 
 	return (
-		<div className='flex items-center justify-center'>
+		<div className='animate-in fade-in-0 flex items-center justify-center duration-75'>
 			<Card className='bg-background text-foreground w-full max-w-xl border shadow-lg'>
 				<CardHeader>
 					<div className='relative h-[320px] w-full overflow-hidden rounded-xl'>

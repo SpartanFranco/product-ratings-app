@@ -45,7 +45,7 @@ export const UserDropdown = ({ session }: Props) => {
 						</AvatarFallback>
 					</Avatar>
 					<div className='flex flex-col overflow-hidden text-left'>
-						<span className='text-foreground max-w-[160px] truncate text-sm font-medium'>
+						<span className='max-w-[160px] truncate text-sm font-medium'>
 							{username}
 						</span>
 						{email && (
@@ -69,7 +69,7 @@ export const UserDropdown = ({ session }: Props) => {
 				</DropdownMenuItem>
 
 				{isAdmin &&
-					(pathname === '/admin' ? (
+					(pathname.startsWith('/admin') ? (
 						<DropdownMenuItem asChild>
 							<Link href='/'>Ir a App-Rating</Link>
 						</DropdownMenuItem>

@@ -15,10 +15,10 @@ export default async function CommentsPage() {
 	const comments = res.comments ?? [];
 
 	return (
-		<div className='bg-background text-foreground p-6'>
+		<div className='animate-fade-in'>
 			<h1 className='mb-6 text-2xl font-bold'>Comentarios</h1>
 
-			<Card className='bg-muted text-foreground'>
+			<Card className='bg-muted'>
 				<CardContent className='p-0'>
 					{comments.length === 0 ? (
 						<div className='text-muted-foreground flex flex-col items-center justify-center gap-4 py-10 text-center'>

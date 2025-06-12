@@ -9,7 +9,7 @@ export default async function ProductsAdminPage() {
 	const products = await getProducts();
 
 	return (
-		<div className='bg-background text-foreground p-6'>
+		<div className='animate-fade-in'>
 			<section className='mb-6 flex items-center justify-between'>
 				<h1 className='text-2xl font-bold'>Productos</h1>
 				<Button

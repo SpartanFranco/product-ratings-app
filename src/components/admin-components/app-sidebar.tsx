@@ -1,4 +1,4 @@
-import { Home, Inbox, MessageCircle, ShoppingBag } from 'lucide-react';
+import { Home, Inbox, MessageCircle, ShoppingBag, User } from 'lucide-react';
 
 import {
 	Sidebar,
@@ -21,6 +21,11 @@ const items = [
 		title: 'Home',
 		url: '/admin',
 		icon: Home,
+	},
+	{
+		title: 'Users',
+		url: '/admin/users',
+		icon: User,
 	},
 	{
 		title: 'Products',

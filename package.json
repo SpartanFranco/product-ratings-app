@@ -34,7 +34,6 @@
 		"cloudinary": "^2.6.1",
 		"clsx": "^2.1.1",
 		"lucide-react": "^0.511.0",
-		"motion": "^12.16.0",
 		"next": "15.3.3",
 		"next-auth": "5.0.0-beta.28",
 		"next-themes": "^0.4.6",

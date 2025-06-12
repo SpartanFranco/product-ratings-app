@@ -22,12 +22,12 @@ export default async function AdminLayout({
 	return (
 		<SidebarProvider>
 			<AppSidebar />
-			<main className='grid h-screen w-full grid-rows-[3.5rem_1fr]'>
-				<section className='bg-background flex w-full justify-between border-b px-4 py-3'>
+			<main className='bg-background text-foreground grid h-screen w-full grid-rows-[3.5rem_1fr]'>
+				<section className='flex w-full justify-between border-b px-4 py-3'>
 					<SidebarTrigger />
 					<ModeToggle />
 				</section>
-				{children}
+				<div className='p-6'>{children}</div>
 			</main>
 		</SidebarProvider>
 	);

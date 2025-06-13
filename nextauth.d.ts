@@ -1,3 +1,4 @@
+import { Role } from '@/generated/prisma';
 import { DefaultSession } from 'next-auth';
 
 declare module 'next-auth' {
@@ -5,7 +6,7 @@ declare module 'next-auth' {
 		user: {
 			id: string;
 			username: string;
-			role: 'user' | 'admin';
+			role: Role;
 			image: string;
 		} & DefaultSession['user'];
 	}

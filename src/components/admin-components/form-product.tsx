@@ -1,15 +1,9 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
-import { ProductSchema, ProductType } from '@/schemas/product.schema';
-import { createOrUpdateProduct } from '@/actions/product/create-or-update-product';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { toast } from 'sonner';
-import { useState } from 'react';
 import { ImageUploadField } from './image-uploaded-field';
+import { useProductForm } from '@/hooks/use-product-form';
 
 interface Props {
 	product?:
@@ -24,66 +18,25 @@ interface Props {
 }
 
 export const ProductForm = ({ product }: Props) => {
-	const isEditMode = !!product?.slug;
 	const {
+		isEditMode,
 		register,
 		handleSubmit,
-		formState: { errors },
-		reset,
-	} = useForm<ProductType>({
-		resolver: zodResolver(ProductSchema),
-		defaultValues: {
-			title: product?.title ?? '',
-			slug: product?.slug ?? '',
-		},
-	});
-
-	const [imageRes, setImageRes] = useState({
-		url: product?.image ?? '',
-		public_id: product?.public_id ?? '',
-	});
-	const [imageError, setImageError] = useState<string | null>(null);
-
-	const { mutateAsync, isPending } = useMutation({
-		mutationFn: async (data: ProductType) => {
-			const res = await createOrUpdateProduct({
-				productId: product?.id,
-				title: data.title,
-				slug: data.slug,
-				image: imageRes.url,
-				public_id: imageRes.public_id,
-			});
-			if (!res?.ok) throw new Error(res?.msg || 'Algo pasó en el servidor');
-			return res;
-		},
-	});
-
-	const onSubmit = (data: ProductType) => {
-		if (!imageRes.url) {
-			setImageError('Debes subir una imagen primero');
-			return;
-		}
-		toast.promise(
-			mutateAsync(data).then((res) => {
-				if (!isEditMode) {
-					reset();
-				}
-				return res;
-			}),
-			{
-				loading: 'Enviando datos...',
-				success: (data) => data.msg,
-				error: (error) => error.message || 'Algo pasó en el servidor',
-			},
-		);
-	};
+		errors,
+		onSubmit,
+		isPending,
+		imageRes,
+		setImageRes,
+		imageError,
+		setImageError,
+	} = useProductForm(product);
 
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className='mx-auto w-full max-w-2xl rounded-2xl bg-white p-8 shadow-xl sm:px-10 dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900'
+			className='w-full rounded-2xl bg-white px-4 py-8 sm:px-10 dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900'
 		>
-			<h2 className='mb-6 text-center text-3xl font-bold text-black sm:text-4xl dark:text-white'>
+			<h2 className='mb-6 text-center text-2xl font-bold text-black sm:text-3xl md:text-4xl dark:text-white'>
 				{isEditMode ? 'Actualizar Producto' : 'Crear Producto'}
 			</h2>
 
@@ -139,7 +92,7 @@ export const ProductForm = ({ product }: Props) => {
 				<Button
 					type='submit'
 					disabled={isPending}
-					className='w-full rounded-xl bg-blue-600 py-3 text-lg font-semibold text-white transition duration-200 ease-in-out hover:bg-blue-700'
+					className='w-full rounded-xl bg-blue-600 py-3 text-base font-semibold text-white transition duration-200 ease-in-out hover:bg-blue-700 sm:text-lg'
 				>
 					{isPending
 						? isEditMode

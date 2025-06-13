@@ -1,8 +1,5 @@
 'use server';
 
-import { writeFile } from 'fs/promises';
-import path from 'path';
-import { randomUUID } from 'crypto';
 import cloudinary from '@/lib/cloudinary';
 
 type UploadResult =
@@ -16,10 +13,6 @@ export async function uploadImageToCloudinary(
 		const bytes = await file.arrayBuffer();
 		const buffer = Buffer.from(bytes);
 
-		// Guardar el archivo temporalmente (opcional)
-		const tmpPath = path.join('/tmp', `${randomUUID()}-${file.name}`);
-		await writeFile(tmpPath, buffer);
-
 		const uploadResult = await new Promise<{ url: string; public_id: string }>(
 			(resolve, reject) => {
 				cloudinary.uploader
@@ -27,7 +20,7 @@ export async function uploadImageToCloudinary(
 						if (error || !result) return reject(error);
 						resolve({ url: result.secure_url, public_id: result.public_id });
 					})
-					.end(buffer);
+					.end(buffer); // Aquí se envía el buffer directamente al stream
 			},
 		);
 

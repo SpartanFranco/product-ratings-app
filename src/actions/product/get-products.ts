@@ -7,6 +7,16 @@ export const getProducts = async () => {
 	const session = await auth();
 	const userId = session?.user?.id;
 
+	const total = await prisma.product.count();
+
+	const isProducts = await prisma.product.count();
+	if (isProducts === 0) {
+		return {
+			totalPages: 1,
+			products: [],
+		};
+	}
+
 	const products = await prisma.product.findMany({
 		orderBy: {
 			createdAt: 'asc',
@@ -24,6 +34,7 @@ export const getProducts = async () => {
 					rating: true,
 					isPending: true,
 					userId: true,
+
 					user: {
 						select: {
 							username: true,
@@ -52,6 +63,7 @@ export const getProducts = async () => {
 				title: product.title,
 				slug: product.slug,
 				image: product.image,
+				public_id: product.public_id,
 				averageRating: product.averageRating,
 				totalRatings: product.totalRatings,
 				userRating,
@@ -60,5 +72,7 @@ export const getProducts = async () => {
 		})
 		.sort((a, b) => a.title.localeCompare(b.title));
 
-	return formatted;
+	return {
+		products: formatted,
+	};
 };

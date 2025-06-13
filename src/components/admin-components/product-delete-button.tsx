@@ -41,13 +41,11 @@ export const ProductDeleteButton = ({ productId }: Props) => {
 			loading: 'Eliminando producto...',
 			success: (data) => {
 				setOpen(false);
+				router.refresh();
 				return data.msg;
 			},
 			error: (error) => error.message || 'Error al eliminar',
 		});
-		if (isSuccess) {
-			router.refresh();
-		}
 	};
 
 	return (

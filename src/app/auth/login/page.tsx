@@ -16,8 +16,9 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { InfoIcon } from 'lucide-react';
+import { InfoIcon, LockKeyhole, User2 } from 'lucide-react';
 import { UserSchema, UserType } from '@/schemas/user.schema';
+import Link from 'next/link';
 
 export default function LoginPage() {
 	const form = useForm<UserType>({
@@ -37,8 +38,10 @@ export default function LoginPage() {
 	}, [state]);
 
 	return (
-		<div className='mx-auto w-[30rem] rounded-md border border-amber-50 bg-slate-950/70 p-8 text-slate-50'>
-			<h1 className='mb-6 text-center text-3xl font-extrabold'>Login</h1>
+		<div className='bg-background rounded-xl p-8 shadow-xl backdrop-blur-md md:w-[30vw] dark:bg-white/5 dark:text-white'>
+			<h1 className='mb-8 text-center text-4xl font-bold tracking-tight'>
+				Bienvenido
+			</h1>
 
 			<Form {...form}>
 				<form
@@ -50,15 +53,17 @@ export default function LoginPage() {
 						name='username'
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Username</FormLabel>
+								<FormLabel className='flex items-center gap-2'>
+									<User2 className='h-4 w-4' /> Usuario
+								</FormLabel>
 								<FormControl>
 									<Input
-										placeholder='Enter your username'
-										className='bg-slate-400/10 focus:bg-slate-400/30'
+										placeholder='Tu nombre de usuario'
+										className='border-white/20 bg-white/10 placeholder:text-slate-400 focus:bg-white/20 dark:border-white/20 dark:bg-white/10 dark:text-white dark:placeholder:text-slate-400 dark:focus:bg-white/20'
 										{...field}
 									/>
 								</FormControl>
-								<FormMessage />
+								<FormMessage className='text-sm text-red-400' />
 							</FormItem>
 						)}
 					/>
@@ -68,34 +73,48 @@ export default function LoginPage() {
 						name='password'
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Password</FormLabel>
+								<FormLabel className='flex items-center gap-2'>
+									<LockKeyhole className='h-4 w-4' /> Contraseña
+								</FormLabel>
 								<FormControl>
 									<Input
 										type='password'
-										placeholder='Enter your password'
-										className='bg-slate-400/10 focus:bg-slate-400/30'
+										placeholder='Tu contraseña secreta'
+										className='border-white/20 bg-white/10 placeholder:text-slate-400 focus:bg-white/20 dark:border-white/20 dark:bg-white/10 dark:text-white dark:placeholder:text-slate-400 dark:focus:bg-white/20'
 										{...field}
 									/>
 								</FormControl>
-								<FormMessage />
+								<FormMessage className='text-sm text-red-400' />
 							</FormItem>
 						)}
 					/>
 
 					{state === 'CredencialSignin' && (
-						<div className='flex items-center gap-2 text-sm text-red-500'>
+						<div className='flex items-center gap-2 text-sm text-red-400'>
 							<InfoIcon className='h-5 w-5' />
-							<span>Invalid credentials</span>
+							<span>Credenciales inválidas</span>
 						</div>
 					)}
 
 					<Button
 						type='submit'
 						disabled={pending}
-						className='w-full'
+						className='w-full bg-amber-500 text-white transition hover:bg-amber-600 dark:bg-amber-500 dark:hover:bg-amber-600'
 					>
-						{pending ? 'Logging in...' : 'Login'}
+						{pending ? 'Ingresando...' : 'Iniciar Sesión'}
 					</Button>
+
+					<div className='mt-4 text-center'>
+						<p className='text-sm'>
+							¿No tienes una cuenta?
+							<Link
+								href='/auth/new-account'
+								className='text-amber-500'
+							>
+								Crear cuenta
+							</Link>
+						</p>
+					</div>
 				</form>
 			</Form>
 		</div>

@@ -11,6 +11,8 @@ export default async function AuthLayout({
 		redirect('/');
 	}
 	return (
-		<div className='grid h-screen w-full place-content-center'>{children}</div>
+		<div className='text-foreground grid h-screen w-full place-content-center'>
+			{children}
+		</div>
 	);
 }

@@ -1,29 +1,26 @@
 import { getProducts } from '@/actions/product/get-products';
-import { Button } from '@/components/ui/button';
-import { PlusCircle, PencilIcon, PackageX } from 'lucide-react';
+import { PackageX } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { ProductDeleteButton } from './ui/product-delete-button';
+import { ProductDeleteButton } from '../../../components/admin-components/product-delete-button';
+import { DynamicPagination } from '@/components/pagination/dinamyc-pagination';
+import { ProductDialogForm } from '@/components/admin-components/product-dialog-form';
 
-export default async function ProductsAdminPage() {
-	const products = await getProducts();
+interface Props {
+	searchParams: {
+		page?: string;
+	};
+}
+
+export default async function ProductsAdminPage({ searchParams }: Props) {
+	const currentPage = Number(searchParams?.page ?? 1);
+	const totalPages = 1;
+	const { products } = await getProducts();
 
 	return (
 		<div className='animate-fade-in'>
 			<section className='mb-6 flex items-center justify-between'>
 				<h1 className='text-2xl font-bold'>Productos</h1>
-				<Button
-					asChild
-					className='bg-green-600 text-white hover:bg-green-700'
-				>
-					<Link
-						href='/admin/product/new'
-						className='flex items-center gap-2'
-					>
-						<PlusCircle className='size-5' />
-						Agregar
-					</Link>
-				</Button>
+				{products.length > 1 && <ProductDialogForm mode='create' />}
 			</section>
 
 			{products.length === 0 ? (
@@ -33,12 +30,7 @@ export default async function ProductsAdminPage() {
 						No hay productos disponibles
 					</h2>
 					<p className='mb-4 text-sm'>Comienza creando tu primer producto.</p>
-					<Button asChild>
-						<Link href='/admin/product/new'>
-							<PlusCircle className='mr-2 size-4' />
-							Agregar producto
-						</Link>
-					</Button>
+					<ProductDialogForm mode='create' />
 				</div>
 			) : (
 				<div className='overflow-x-auto rounded-2xl shadow-lg'>
@@ -62,8 +54,8 @@ export default async function ProductsAdminPage() {
 									<td className='px-6 py-4'>
 										<Image
 											src={p.image ?? '/placeholder.jpg'}
-											width={40}
-											height={40}
+											width={50}
+											height={50}
 											alt={p.slug}
 											className='rounded-md object-cover'
 										/>
@@ -74,15 +66,10 @@ export default async function ProductsAdminPage() {
 									<td className='px-6 py-4'>{p.countComments}</td>
 									<td className='px-6 py-4'>
 										<div className='flex items-center gap-2'>
-											<Button
-												asChild
-												size='icon'
-												className='bg-yellow-500 hover:bg-yellow-600'
-											>
-												<Link href={`/admin/product/${p.slug}`}>
-													<PencilIcon className='size-4 text-white' />
-												</Link>
-											</Button>
+											<ProductDialogForm
+												mode='edit'
+												product={p}
+											/>
 
 											<ProductDeleteButton productId={p.id} />
 										</div>
@@ -92,6 +79,12 @@ export default async function ProductsAdminPage() {
 						</tbody>
 					</table>
 				</div>
+			)}
+			{totalPages > 1 && (
+				<DynamicPagination
+					currentPage={currentPage}
+					totalPages={1}
+				/>
 			)}
 		</div>
 	);

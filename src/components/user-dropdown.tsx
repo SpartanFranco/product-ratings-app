@@ -12,7 +12,7 @@ import {
 import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface Props {
 	session: Session | null;
@@ -20,15 +20,16 @@ interface Props {
 
 export const UserDropdown = ({ session }: Props) => {
 	const pathname = usePathname();
-
+	const router = useRouter();
 	const { username, email, role, image } = session?.user ?? {};
-	const isAdmin = role === 'admin';
+	const isAdmin = role === 'admin' || role === 'superAdmin';
 
 	const handleSignOut = () => {
 		const isInAdmin = pathname?.startsWith('/admin');
 		signOut({
 			...(isInAdmin && { callbackUrl: '/' }),
 		});
+		router.refresh();
 	};
 
 	return (

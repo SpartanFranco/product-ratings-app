@@ -1,9 +1,16 @@
 import { auth } from '@/auth.config';
+import { Role } from '@/generated/prisma';
 
-export const validateAdmin = async () => {
+export const validateAdminOrSuperAdmin = async (
+	allowedRoles: Role[] = [Role.admin, Role.superAdmin],
+) => {
 	const session = await auth();
 
-	if (!session || session.user.role !== 'admin') {
+	if (!session || !allowedRoles.includes(session.user.role as Role)) {
+		if (allowedRoles.length === 1 && allowedRoles[0] === Role.superAdmin) {
+			throw new Error('Esta acción requiere permisos de Super Admin');
+		}
+
 		throw new Error('No hay session de administrador');
 	}
 };

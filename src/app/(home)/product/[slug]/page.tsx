@@ -6,6 +6,7 @@ import { auth } from '@/auth.config';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
+import { notFound } from 'next/navigation';
 
 interface Props {
 	params: Promise<{ slug: string }>;
@@ -17,11 +18,7 @@ export default async function ProductPage({ params }: Props) {
 	const session = await auth();
 
 	if (!res.ok) {
-		return (
-			<div className='flex min-h-screen items-center justify-center bg-gray-900/60 px-4'>
-				<h1 className='text-4xl font-bold text-red-500'>{res.msg}</h1>
-			</div>
-		);
+		notFound();
 	}
 
 	const product = res.product;

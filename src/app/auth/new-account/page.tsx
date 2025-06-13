@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function NewAccountPage() {
 	const [errorMessage, setErrorMessage] = useState<string | undefined>('');
@@ -44,9 +45,9 @@ export default function NewAccountPage() {
 	};
 
 	return (
-		<div className='mx-auto w-[30rem] rounded-md border border-amber-50 bg-slate-950/70 p-8 text-slate-50'>
-			<h1 className='mb-6 text-center text-3xl font-extrabold'>
-				Create account
+		<div className='bg-background rounded-xl p-8 shadow-xl backdrop-blur-md md:w-[30vw] dark:bg-white/5 dark:text-white'>
+			<h1 className='mb-8 text-center text-4xl font-bold tracking-tight'>
+				Crear cuenta
 			</h1>
 
 			<Form {...form}>
@@ -59,15 +60,17 @@ export default function NewAccountPage() {
 						name='username'
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Username</FormLabel>
+								<FormLabel className='flex items-center gap-2'>
+									Usuario
+								</FormLabel>
 								<FormControl>
 									<Input
-										placeholder='Enter your username'
-										className='bg-slate-400/10 focus:bg-slate-400/30'
+										placeholder='Tu nombre de usuario'
+										className='border-white/20 bg-white/10 placeholder:text-slate-400 focus:bg-white/20 dark:border-white/20 dark:bg-white/10 dark:text-white dark:placeholder:text-slate-400 dark:focus:bg-white/20'
 										{...field}
 									/>
 								</FormControl>
-								<FormMessage />
+								<FormMessage className='text-sm text-red-400' />
 							</FormItem>
 						)}
 					/>
@@ -77,16 +80,18 @@ export default function NewAccountPage() {
 						name='password'
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Password</FormLabel>
+								<FormLabel className='flex items-center gap-2'>
+									Contraseña
+								</FormLabel>
 								<FormControl>
 									<Input
 										type='password'
-										placeholder='Enter your password'
-										className='bg-slate-400/10 focus:bg-slate-400/30'
+										placeholder='Tu contraseña secreta'
+										className='border-white/20 bg-white/10 placeholder:text-slate-400 focus:bg-white/20 dark:border-white/20 dark:bg-white/10 dark:text-white dark:placeholder:text-slate-400 dark:focus:bg-white/20'
 										{...field}
 									/>
 								</FormControl>
-								<FormMessage />
+								<FormMessage className='text-sm text-red-400' />
 							</FormItem>
 						)}
 					/>
@@ -97,10 +102,22 @@ export default function NewAccountPage() {
 
 					<Button
 						type='submit'
-						className='w-full'
+						className='w-full bg-amber-500 text-white transition hover:bg-amber-600 dark:bg-amber-500 dark:hover:bg-amber-600'
 					>
-						Create
+						Crear cuenta
 					</Button>
+
+					<div className='mt-4 text-center'>
+						<p className='text-sm'>
+							¿Ya tienes una cuenta?{' '}
+							<Link
+								href='/auth/login'
+								className='text-amber-500'
+							>
+								Iniciar sesión
+							</Link>
+						</p>
+					</div>
 				</form>
 			</Form>
 		</div>

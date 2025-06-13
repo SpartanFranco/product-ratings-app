@@ -69,6 +69,7 @@ export const FormComment = ({ productId }: Props) => {
 							<FormLabel>Comentario</FormLabel>
 							<FormControl>
 								<Textarea
+									{...field}
 									placeholder='Escribe tu comentario...'
 									className='min-h-[100px] bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100'
 								/>

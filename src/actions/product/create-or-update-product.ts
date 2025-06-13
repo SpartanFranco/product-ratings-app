@@ -2,7 +2,8 @@
 
 import cloudinary from '@/lib/cloudinary';
 import prisma from '@/lib/prisma';
-import { validateAdmin } from '@/lib/validate-admin';
+import { validateAdminOrSuperAdmin } from '@/lib/validate-admin';
+
 import { ProductType } from '@/schemas/product.schema';
 
 interface Data extends ProductType {
@@ -19,7 +20,7 @@ export const createOrUpdateProduct = async ({
 	productId,
 }: Data) => {
 	try {
-		await validateAdmin();
+		await validateAdminOrSuperAdmin();
 		if (productId) {
 			const product = await prisma.product.findUnique({
 				where: { id: productId },

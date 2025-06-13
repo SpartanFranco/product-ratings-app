@@ -1,11 +1,11 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import { validateAdmin } from '@/lib/validate-admin';
+import { validateAdminOrSuperAdmin } from '@/lib/validate-admin';
 
 export const getProductForEdit = async (slug: string) => {
 	try {
-		await validateAdmin();
+		await validateAdminOrSuperAdmin();
 
 		const product = await prisma.product.findFirst({
 			where: { slug },

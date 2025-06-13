@@ -1,7 +1,7 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import { validateAdmin } from '@/lib/validate-admin';
+import { validateAdminOrSuperAdmin } from '@/lib/validate-admin';
 
 export const aproveComment = async (
 	commentId: string,
@@ -9,7 +9,7 @@ export const aproveComment = async (
 	isPending: boolean,
 ) => {
 	try {
-		await validateAdmin();
+		await validateAdminOrSuperAdmin();
 		await prisma.feedback.update({
 			where: {
 				id: commentId,

@@ -38,8 +38,13 @@ export const ImageUploadField = ({
 			});
 			const data = await res.json();
 
-			if (!data.ok) throw new Error(data.error || 'Error al subir');
+			if (!data.ok) throw new Error(data.error || 'Error al subir imagen');
 			onChange(data);
+
+			// Guardar el public_id temporalmente en localStorage
+			if (typeof window !== 'undefined') {
+				localStorage.setItem('temp_uploaded_public_id', data.public_id);
+			}
 		} catch (err) {
 			console.error(err);
 			onError?.('Error al subir la imagen');

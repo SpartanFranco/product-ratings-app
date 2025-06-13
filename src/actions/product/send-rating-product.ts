@@ -16,7 +16,9 @@ export const sendRatingProduct = async (productId: string, rating: number) => {
 	}
 
 	try {
-		// Validar producto
+		const user = await prisma.user.findFirst({ where: { id: userId } });
+		if (!user) throw new Error('El usuario no existe');
+
 		const product = await prisma.product.findUnique({
 			where: { id: productId },
 			select: { id: true },

@@ -2,11 +2,11 @@
 
 import cloudinary from '@/lib/cloudinary';
 import prisma from '@/lib/prisma';
-import { validateAdmin } from '@/lib/validate-admin';
+import { validateAdminOrSuperAdmin } from '@/lib/validate-admin';
 
 export const deleteProduct = async (id: string) => {
 	try {
-		await validateAdmin();
+		await validateAdminOrSuperAdmin();
 		const product = await prisma.product.findFirst({ where: { id } });
 		if (!product) {
 			return { ok: false, msg: 'No existe el producto por ese ID' };

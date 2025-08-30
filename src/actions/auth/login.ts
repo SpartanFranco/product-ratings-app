@@ -19,7 +19,7 @@ export async function authenticate(
 
 export const login = async (username: string, password: string) => {
 	try {
-		await signIn('credentials', { username, password, redirect: false });
+		await signIn('credentials', { username, password, redirectTo: '/' });
 
 		return {
 			ok: true,

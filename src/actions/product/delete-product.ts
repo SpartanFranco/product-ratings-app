@@ -9,7 +9,7 @@ export const deleteProduct = async (id: string) => {
 		await validateAdminOrSuperAdmin();
 		const product = await prisma.product.findFirst({ where: { id } });
 		if (!product) {
-			return { ok: false, msg: 'No existe el producto por ese ID' };
+			return { ok: false, msg: 'The product does not exist for that ID.' };
 		}
 
 		if (product.public_id) {
@@ -17,7 +17,7 @@ export const deleteProduct = async (id: string) => {
 			if (result.result !== 'ok' && result.result !== 'not found') {
 				return {
 					ok: false,
-					msg: 'No se pudo eliminar la imagen de Cloudinary',
+					msg: 'Could not delete image from Cloudinary',
 				};
 			}
 		}
@@ -26,7 +26,7 @@ export const deleteProduct = async (id: string) => {
 
 		return {
 			ok: true,
-			msg: 'Se eliminó el producto exitosamente',
+			msg: 'The product was successfully removed',
 		};
 	} catch (error) {
 		console.error('[delete-product]', error);
@@ -37,7 +37,7 @@ export const deleteProduct = async (id: string) => {
 			msg:
 				error instanceof Error
 					? error.message
-					: 'No se pudo borrar el producto',
+					: 'The product could not be deleted',
 		};
 	}
 };

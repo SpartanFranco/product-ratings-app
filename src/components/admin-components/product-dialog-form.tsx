@@ -67,12 +67,12 @@ export const ProductDialogForm = ({ product, mode }: Props) => {
 					{isEdit ? (
 						<>
 							<Pencil className='h-4 w-4' />
-							Editar
+							Edit
 						</>
 					) : (
 						<>
 							<Plus className='h-4 w-4' />
-							Crear Producto
+							Create Product
 						</>
 					)}
 				</Button>
@@ -81,7 +81,7 @@ export const ProductDialogForm = ({ product, mode }: Props) => {
 			<DialogContent className='max-h-screen w-full overflow-y-auto rounded-xl bg-white p-6 sm:max-w-2xl dark:bg-slate-800'>
 				<DialogHeader>
 					<DialogTitle className='text-lg font-bold text-gray-800 sm:text-xl dark:text-white'>
-						{isEdit ? `Editar: ${product?.title ?? ''}` : 'Crear Producto'}
+						{isEdit ? `Edit: ${product?.title ?? ''}` : 'Create Product'}
 					</DialogTitle>
 				</DialogHeader>
 				<ProductForm product={product} />

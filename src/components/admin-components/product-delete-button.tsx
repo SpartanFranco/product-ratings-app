@@ -38,13 +38,13 @@ export const ProductDeleteButton = ({ productId }: Props) => {
 
 	const handleDelete = () => {
 		toast.promise(mutateAsync(productId), {
-			loading: 'Eliminando producto...',
+			loading: 'Removing product...',
 			success: (data) => {
 				setOpen(false);
 				router.refresh();
 				return data.msg;
 			},
-			error: (error) => error.message || 'Error al eliminar',
+			error: (error) => error.message || 'Delete error',
 		});
 	};
 
@@ -58,19 +58,19 @@ export const ProductDeleteButton = ({ productId }: Props) => {
 					variant='destructive'
 					size='sm'
 				>
-					Eliminar
+					Delete
 				</Button>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>
-					<AlertDialogTitle>¿Eliminar producto?</AlertDialogTitle>
+					<AlertDialogTitle>Delete product?</AlertDialogTitle>
 					<AlertDialogDescription>
-						Esto eliminará permanentemente el producto de la base de datos.
+						This will permanently remove the product from the database.
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
-					<AlertDialogCancel>Cancelar</AlertDialogCancel>
-					<AlertDialogAction onClick={handleDelete}>Eliminar</AlertDialogAction>
+					<AlertDialogCancel>Cancel</AlertDialogCancel>
+					<AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

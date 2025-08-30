@@ -14,13 +14,12 @@ export const authConfig: NextAuthConfig = {
 	callbacks: {
 		authorized: ({ auth, request: { nextUrl } }) => {
 			const isLoggedIn = !!auth?.user;
-			const isOnProtectedPage = nextUrl.pathname.startsWith('/dashboard'); // más específico
+			const isOnProtectedPage = nextUrl.pathname.startsWith('/dashboard');
 
 			if (isOnProtectedPage && !isLoggedIn) {
 				return false;
 			}
 
-			// No redirigir desde aquí. Solo dejar pasar o no.
 			return true;
 		},
 		jwt: ({ token, user }) => {
@@ -30,8 +29,6 @@ export const authConfig: NextAuthConfig = {
 			return token;
 		},
 		session: ({ session, token, user }) => {
-			// console.log({ session, token, user });
-
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			session.user = token.data as any;
 			return session;
@@ -40,23 +37,33 @@ export const authConfig: NextAuthConfig = {
 
 	providers: [
 		Credentials({
+			name: 'credentials',
+			credentials: {
+				username: {
+					label: 'username',
+					type: 'tex',
+				},
+				password: {
+					label: 'password',
+					type: 'password',
+				},
+			},
 			async authorize(credentials) {
 				const parsedCredentials = UserSchema.safeParse(credentials);
 
 				if (!parsedCredentials.success) return null;
 
 				const { username, password } = parsedCredentials.data;
-				console.log(parsedCredentials.data);
 
-				//Buscar email
 				const user = await prisma.user.findUnique({
-					where: { username: username.toLowerCase() },
+					where: { username },
 				});
-				if (!user) return null;
-				//comparar contraseñas
-				if (!bcrypt.compareSync(password, user.password)) return null;
 
-				//regresar el usuario
+				if (!user) return null;
+
+				const isValidPassword = await bcrypt.compare(password, user.password);
+				if (!isValidPassword) return null;
+
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 				const { password: _, ...rest } = user;
 

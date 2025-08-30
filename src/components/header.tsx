@@ -6,7 +6,7 @@ import { UserDropdown } from './user-dropdown';
 
 export const Header = async ({ children }: { children?: React.ReactNode }) => {
 	const session = await auth();
-
+	console.log({ user: session?.user });
 	return (
 		<header className='flex flex-wrap items-center justify-between gap-4 border-b px-4 py-1 shadow-sm dark:shadow-[0_2px_15px_1px_rgba(255,255,255,0.08)]'>
 			{children}
@@ -16,9 +16,7 @@ export const Header = async ({ children }: { children?: React.ReactNode }) => {
 					<UserDropdown session={session} />
 				</section>
 			) : (
-				<h1 className='truncate text-base font-semibold capitalize'>
-					Invitado
-				</h1>
+				<h1 className='truncate text-base font-semibold capitalize'>Invited</h1>
 			)}
 
 			<div className='flex flex-shrink-0 items-center gap-2'>

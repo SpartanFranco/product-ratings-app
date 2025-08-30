@@ -40,8 +40,11 @@ export default function NewAccountPage() {
 		}
 
 		setErrorMessage('');
-		await login(username.toLowerCase(), password);
-		window.location.replace('/');
+		await login(username, password);
+
+		// if (res?.ok) {
+		// 	window.location.replace('/');
+		// }
 	};
 
 	return (

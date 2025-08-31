@@ -20,8 +20,8 @@ import { Button } from '@/components/ui/button';
 const commentSchema = z.object({
 	text: z
 		.string()
-		.min(5, 'El comentario debe tener al menos 5 caracteres')
-		.max(500, 'El comentario no debe superar los 500 caracteres'),
+		.min(5, 'Comment must be at least 5 characters')
+		.max(500, 'Comment must not exceed 500 characters'),
 });
 
 type CommentFormData = z.infer<typeof commentSchema>;
@@ -40,14 +40,14 @@ export const FormComment = ({ productId }: Props) => {
 		mutationFn: (data: CommentFormData) => sendComment(productId, data.text),
 		onSuccess: (res) => {
 			if (res.ok) {
-				toast.success(res.msg || 'Comentario enviado correctamente');
+				toast.success(res.msg || 'Comment submitted successfully');
 				form.reset();
 			} else {
-				toast.error(res.msg || 'No se pudo enviar el comentario');
+				toast.error(res.msg || 'Failed to submit comment');
 			}
 		},
 		onError: () => {
-			toast.error('Ocurrió un error al enviar el comentario');
+			toast.error('An error occurred while submitting the comment');
 		},
 	});
 
@@ -66,12 +66,12 @@ export const FormComment = ({ productId }: Props) => {
 					name='text'
 					render={({ field }) => (
 						<div>
-							<FormLabel>Comentario</FormLabel>
+							<FormLabel>Comment</FormLabel>
 							<FormControl>
 								<Textarea
 									{...field}
-									placeholder='Escribe tu comentario...'
-									className='min-h-[100px] bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100'
+									placeholder='Write your comment...'
+									className='mt-2 min-h-[100px] bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100'
 								/>
 							</FormControl>
 							<FormMessage />
@@ -84,7 +84,7 @@ export const FormComment = ({ productId }: Props) => {
 					disabled={mutation.isPending}
 					className='w-full bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600'
 				>
-					{mutation.isPending ? 'Enviando...' : 'Enviar comentario'}
+					{mutation.isPending ? 'Submitting...' : 'Submit Comment'}
 				</Button>
 			</form>
 		</Form>

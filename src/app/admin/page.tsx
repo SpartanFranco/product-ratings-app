@@ -7,10 +7,10 @@ export default function AdminPage() {
 				<div className='mb-4 flex justify-center'>
 					<ShieldCheck className='text-primary h-12 w-12' />
 				</div>
-				<h1 className='mb-2 text-3xl font-bold'>¡Hola, Admin! 👋</h1>
+				<h1 className='mb-2 text-3xl font-bold'>Hello Admin! 👋</h1>
 				<p className='text-muted-foreground text-lg'>
-					Bienvenido al panel de administración. Esperamos que tengas un
-					excelente día gestionando tu plataforma.
+					Welcome to the administration panel. We hope you have a excellent day
+					managing your platform.
 				</p>
 			</div>
 		</div>

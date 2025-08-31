@@ -7,7 +7,7 @@ export default function Loading() {
 			<div className='mb-6 flex items-center justify-between'>
 				<section className='flex gap-4'>
 					<Loader2 className='text-muted-foreground size-6 animate-spin' />
-					<h1 className='text-2xl font-bold'>Cargando los productos...</h1>
+					<h1 className='text-2xl font-bold'>Loading products...</h1>
 				</section>
 				<Skeleton className='h-10 w-[100px] rounded-md' />
 			</div>
@@ -15,11 +15,11 @@ export default function Loading() {
 				<table className='min-w-full text-sm'>
 					<thead>
 						<tr className='text-muted-foreground border-b text-left uppercase'>
-							<th className='px-6 py-3'>Título</th>
-							<th className='px-6 py-3'>Imagen</th>
+							<th className='px-6 py-3'>Title</th>
+							<th className='px-6 py-3'>Image</th>
 							<th className='px-6 py-3'>Rating</th>
-							<th className='px-6 py-3'>Comentarios</th>
-							<th className='px-6 py-3'>Acciones</th>
+							<th className='px-6 py-3'>Comments</th>
+							<th className='px-6 py-3'>Actions</th>
 						</tr>
 					</thead>
 					<tbody>

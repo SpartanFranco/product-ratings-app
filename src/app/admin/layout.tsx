@@ -7,7 +7,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
 	title: 'Admin Dashboard',
-	description: 'Panel de administracion de Rating App',
+	description: 'Product Ratings App administration panel',
 };
 
 export default async function AdminLayout({

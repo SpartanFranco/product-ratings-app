@@ -9,7 +9,7 @@ export const registerUser = async (username: string, password: string) => {
 		if (userExist) {
 			return {
 				ok: false,
-				message: `El username ${username} ya esta en uso`,
+				message: `Username ${username} it is already in use`,
 			};
 		}
 
@@ -29,14 +29,14 @@ export const registerUser = async (username: string, password: string) => {
 		return {
 			ok: true,
 			user: user,
-			message: 'Usuario creado',
+			message: 'User created',
 		};
 	} catch (error) {
 		console.log({ error });
 
 		return {
 			ok: false,
-			message: 'No se pudo crear el usuario',
+			message: 'The user could not be created',
 		};
 	}
 };

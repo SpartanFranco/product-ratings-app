@@ -66,13 +66,13 @@ export const UserDropdown = ({ session }: Props) => {
 				<DropdownMenuSeparator />
 
 				<DropdownMenuItem asChild>
-					<Link href='/profile'>Perfil</Link>
+					<Link href='/profile'>Profile</Link>
 				</DropdownMenuItem>
 
 				{isAdmin &&
 					(pathname.startsWith('/admin') ? (
 						<DropdownMenuItem asChild>
-							<Link href='/'>Ir a App-Rating</Link>
+							<Link href='/'>Go to Product-Ratings-App</Link>
 						</DropdownMenuItem>
 					) : (
 						<DropdownMenuItem asChild>
@@ -86,7 +86,7 @@ export const UserDropdown = ({ session }: Props) => {
 					onClick={handleSignOut}
 					className='text-red-500 focus:text-red-600'
 				>
-					Cerrar sesión
+					Logout
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

@@ -1,36 +1,138 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js App
 
-## Getting Started
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).  
+It uses **Prisma + PostgreSQL**, authentication, and Cloudinary for media management.
 
-First, run the development server:
+---
+
+## 🚀 Getting Started
+
+First, install dependencies:
 
 ```bash
+pnpm install
+# or
+npm install
+# or
+yarn install
+# or
+bun install
+```
+
+### Run the development server
+
+```bash
+pnpm dev
+# or
 npm run dev
 # or
 yarn dev
 # or
-pnpm dev
-# or
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.  
+You can start editing by modifying `app/page.tsx`. The page will auto-update on save.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🐳 Running PostgreSQL with Docker
 
-## Learn More
+This project ships with a `docker-compose.yml` with a persistent volume to avoid losing database data.
 
-To learn more about Next.js, take a look at the following resources:
+### docker-compose.yml
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```yaml
+version: '3.9'
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+services:
+  product-ratings-db:
+    image: postgres:16
+    container_name: product-ratings-db
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=dbname
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
-## Deploy on Vercel
+volumes:
+  postgres_data:
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Start the container:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+docker-compose up -d
+```
+
+Stop the container:
+
+```bash
+docker-compose down
+```
+
+Stop and remove volume (reset database):
+
+```bash
+docker-compose down -v
+```
+
+---
+
+## 🛠 Environment Variables
+
+Create a `.env` file in the root of the project and configure:
+
+```env
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/dbname?schema=public"
+
+# Authentication
+AUTH_SECRET="your-auth-secret"
+
+# Cloudinary (optional, required if admin account is created)
+CLOUDINARY_API_KEY=""
+CLOUDINARY_API_SECRET=""
+CLOUDINARY_CLOUD_NAME=""
+```
+
+---
+
+## 🗄 Database with Prisma
+
+Prisma is used as the ORM. Make sure you run migrations before starting:
+
+```bash
+pnpm exec prisma migrate dev
+```
+
+To seed the database with initial data, run:
+
+```bash
+pnpm exec prisma db seed
+```
+
+The seed script is located in the `/prisma/seed.ts` folder and will populate the database with starter data.
+
+---
+
+## ✨ Fonts
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically load and optimize [Geist](https://vercel.com/font).
+
+---
+
+## 📚 Learn More
+
+- [Next.js Documentation](https://nextjs.org/docs) – learn about Next.js features and API.
+- [Prisma Docs](https://www.prisma.io/docs) – learn more about using Prisma ORM.
+- [Cloudinary Docs](https://cloudinary.com/documentation) – learn how to configure Cloudinary for image storage.
+
+---
+
+## 🚀 Deployment
+
+The easiest way to deploy your Next.js app is with [Vercel](https://vercel.com).  
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

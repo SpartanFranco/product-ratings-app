@@ -11,7 +11,24 @@ import { notFound } from 'next/navigation';
 interface Props {
 	params: Promise<{ slug: string }>;
 }
+export async function generateMetadata({ params }: Props) {
+	const { slug } = await params;
+	const res = await getProductBySlug(slug);
 
+	if (!res.ok || !res.product) {
+		return {
+			title: 'Product not found',
+			description: 'This product does not exist.',
+		};
+	}
+
+	const product = res.product;
+
+	return {
+		title: product.title,
+		description: `Read reviews and rate the product "${product.title}". Average: ${product.averageRating ?? '0.0'}`,
+	};
+}
 export default async function ProductPage({ params }: Props) {
 	const { slug } = await params;
 	const res = await getProductBySlug(slug);
@@ -26,7 +43,7 @@ export default async function ProductPage({ params }: Props) {
 	if (!product) {
 		return (
 			<div className='flex min-h-screen items-center justify-center text-gray-500'>
-				Cargando producto...
+				Loading product...
 			</div>
 		);
 	}
@@ -43,7 +60,7 @@ export default async function ProductPage({ params }: Props) {
 							{product.title}
 						</h2>
 						<p className='text-sm text-gray-500 dark:text-gray-400'>
-							Publicado el {new Date(product.createdAt).toLocaleDateString()}
+							Published on {new Date(product.createdAt).toLocaleDateString()}
 						</p>
 					</div>
 				</CardHeader>
@@ -63,7 +80,7 @@ export default async function ProductPage({ params }: Props) {
 
 				<CardContent className='space-y-6 p-6'>
 					<p className='text-sm text-gray-600 dark:text-gray-300'>
-						⭐ Promedio: <strong>{product.averageRating ?? '0.0'}</strong> |
+						⭐ Average: <strong>{product.averageRating ?? '0.0'}</strong> |
 						Total ratings: {product.totalRatings}
 					</p>
 
@@ -71,14 +88,12 @@ export default async function ProductPage({ params }: Props) {
 
 					<div>
 						<h3 className='mb-4 text-base font-semibold text-gray-800 dark:text-white'>
-							Comentarios
+							Comments
 						</h3>
 
 						{product.comments.length === 0 ? (
 							<p className='text-sm text-gray-400'>
-								{session?.user
-									? 'Sé el primero en comentar.'
-									: 'No hay comentarios'}
+								{session?.user ? 'Be the first to comment.' : 'No comments yet'}
 							</p>
 						) : (
 							product.comments.map((comment, idx) => (

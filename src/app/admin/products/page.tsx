@@ -6,30 +6,28 @@ import { DynamicPagination } from '@/components/pagination/dinamyc-pagination';
 import { ProductDialogForm } from '@/components/admin-components/product-dialog-form';
 
 interface Props {
-	searchParams: {
+	searchParams: Promise<{
 		page?: string;
-	};
+	}>;
 }
 
 export default async function ProductsAdminPage({ searchParams }: Props) {
-	const currentPage = Number(searchParams?.page ?? 1);
+	const currentPage = Number((await searchParams).page ?? 1);
 	const totalPages = 1;
 	const { products } = await getProducts();
 
 	return (
 		<div className='animate-fade-in'>
 			<section className='mb-6 flex items-center justify-between'>
-				<h1 className='text-2xl font-bold'>Productos</h1>
+				<h1 className='text-2xl font-bold'>Products</h1>
 				{products.length > 1 && <ProductDialogForm mode='create' />}
 			</section>
 
 			{products.length === 0 ? (
 				<div className='border-muted text-muted-foreground flex flex-col items-center justify-center rounded-xl border border-dashed p-10 text-center'>
 					<PackageX className='mb-4 size-10' />
-					<h2 className='mb-2 text-lg font-semibold'>
-						No hay productos disponibles
-					</h2>
-					<p className='mb-4 text-sm'>Comienza creando tu primer producto.</p>
+					<h2 className='mb-2 text-lg font-semibold'>No products available</h2>
+					<p className='mb-4 text-sm'>Start by creating your first product.</p>
 					<ProductDialogForm mode='create' />
 				</div>
 			) : (
@@ -37,11 +35,11 @@ export default async function ProductsAdminPage({ searchParams }: Props) {
 					<table className='bg-background min-w-full rounded-2xl text-sm'>
 						<thead>
 							<tr className='border-border text-muted-foreground border-b text-left uppercase'>
-								<th className='px-6 py-3'>Título</th>
-								<th className='px-6 py-3'>Imagen</th>
+								<th className='px-6 py-3'>Title</th>
+								<th className='px-6 py-3'>Image</th>
 								<th className='px-6 py-3'>Rating</th>
-								<th className='px-6 py-3'>Comentarios</th>
-								<th className='px-6 py-3'>Acciones</th>
+								<th className='px-6 py-3'>Comments</th>
+								<th className='px-6 py-3'>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -70,7 +68,6 @@ export default async function ProductsAdminPage({ searchParams }: Props) {
 												mode='edit'
 												product={p}
 											/>
-
 											<ProductDeleteButton productId={p.id} />
 										</div>
 									</td>

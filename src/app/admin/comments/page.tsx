@@ -16,27 +16,27 @@ export default async function CommentsPage() {
 
 	return (
 		<div className='animate-fade-in'>
-			<h1 className='mb-6 text-2xl font-bold'>Comentarios</h1>
+			<h1 className='mb-6 text-2xl font-bold'>Comments</h1>
 
 			<Card className='bg-muted'>
 				<CardContent className='p-0'>
 					{comments.length === 0 ? (
 						<div className='text-muted-foreground flex flex-col items-center justify-center gap-4 py-10 text-center'>
 							<MessageCircleOff className='size-10' />
-							<h2 className='text-lg font-semibold'>No hay comentarios</h2>
+							<h2 className='text-lg font-semibold'>No comments</h2>
 							<p className='text-sm'>
-								Aún no se han realizado comentarios sobre los productos.
+								No comments have been made on the products yet.
 							</p>
 						</div>
 					) : (
 						<Table>
 							<TableHeader>
 								<TableRow className='text-muted-foreground'>
-									<TableHead>Usuario</TableHead>
-									<TableHead>Producto</TableHead>
+									<TableHead>User</TableHead>
+									<TableHead>Product</TableHead>
 									<TableHead>Rating</TableHead>
-									<TableHead>Comentario</TableHead>
-									<TableHead>Estado</TableHead>
+									<TableHead>Comment</TableHead>
+									<TableHead>Status</TableHead>
 								</TableRow>
 							</TableHeader>
 							<TableBody>

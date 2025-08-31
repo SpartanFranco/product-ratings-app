@@ -39,10 +39,7 @@ export const getComments = async () => {
 		console.log('getComments', { error });
 		return {
 			ok: false,
-			msg:
-				error instanceof Error
-					? error.message
-					: 'No se pudo obtener los comentarios',
+			msg: error instanceof Error ? error.message : 'Could not get comments',
 		};
 	}
 };

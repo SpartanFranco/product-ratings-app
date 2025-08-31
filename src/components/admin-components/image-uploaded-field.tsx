@@ -1,5 +1,6 @@
 'use client';
 
+import { uploadImageToCloudinary } from '@/actions/images/upload-image';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 
@@ -28,29 +29,19 @@ export const ImageUploadField = ({
 		setIsUploading(true);
 		resetError?.();
 
-		const formData = new FormData();
-		formData.append('file', file);
+		const res = await uploadImageToCloudinary(file);
 
-		try {
-			const res = await fetch('/api/upload', {
-				method: 'POST',
-				body: formData,
-			});
-			const data = await res.json();
-
-			if (!data.ok) throw new Error(data.error || 'Error al subir imagen');
-			onChange(data);
-
-			// Guardar el public_id temporalmente en localStorage
-			if (typeof window !== 'undefined') {
-				localStorage.setItem('temp_uploaded_public_id', data.public_id);
-			}
-		} catch (err) {
-			console.error(err);
+		if (!res.ok) {
+			console.log(res.error);
 			onError?.('Error al subir la imagen');
-		} finally {
 			setIsUploading(false);
+			return;
 		}
+		onChange({ url: res.url, public_id: res.public_id });
+		if (typeof window !== 'undefined') {
+			localStorage.setItem('temp_uploaded_public_id', res.public_id);
+		}
+		setIsUploading(false);
 	};
 
 	return (

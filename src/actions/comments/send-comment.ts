@@ -5,7 +5,7 @@ import prisma from '@/lib/prisma';
 export const sendComment = async (productId: string, comment: string) => {
 	const session = await auth();
 	if (!session?.user) {
-		return { ok: false, msg: 'Debes iniciar sesión para poder comentar' };
+		return { ok: false, msg: 'You must be logged in to comment' };
 	}
 	try {
 		const product = await prisma.product.findFirst({
@@ -14,7 +14,7 @@ export const sendComment = async (productId: string, comment: string) => {
 		if (!product) {
 			return {
 				ok: false,
-				msg: `El producto con el id ${productId} no existe`,
+				msg: `The product with id ${productId} does not exist`,
 			};
 		}
 		await prisma.feedback.create({
@@ -28,13 +28,13 @@ export const sendComment = async (productId: string, comment: string) => {
 
 		return {
 			ok: true,
-			msg: 'Se ha enviado el comentario,antes de verlo en la publicación por favor espere mientras el administrador lo revisa ',
+			msg: 'The comment has been sent. Before viewing it in the post, please wait while the administrator reviews it.',
 		};
 	} catch (error) {
 		console.log('sendComment', { error });
 		return {
 			ok: false,
-			msg: 'No se pudo enviar el comentario',
+			msg: 'The comment could not be sent.',
 		};
 	}
 };

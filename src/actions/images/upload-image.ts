@@ -20,7 +20,7 @@ export async function uploadImageToCloudinary(
 						if (error || !result) return reject(error);
 						resolve({ url: result.secure_url, public_id: result.public_id });
 					})
-					.end(buffer); // Aquí se envía el buffer directamente al stream
+					.end(buffer);
 			},
 		);
 

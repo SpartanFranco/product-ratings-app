@@ -15,18 +15,18 @@ export default function Loading() {
 			<div className='flex items-center gap-3'>
 				<Loader2 className='text-muted-foreground size-6 animate-spin' />
 				<h1 className='text-foreground text-2xl font-bold'>
-					Cargando comentarios...
+					Loading comments...
 				</h1>
 			</div>
 
 			<Table>
 				<TableHeader>
 					<TableRow className='text-muted-foreground'>
-						<TableHead>Usuario</TableHead>
-						<TableHead>Producto</TableHead>
+						<TableHead>User</TableHead>
+						<TableHead>Product</TableHead>
 						<TableHead>Rating</TableHead>
-						<TableHead>Comentario</TableHead>
-						<TableHead>Estado</TableHead>
+						<TableHead>Comment</TableHead>
+						<TableHead>Status</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>

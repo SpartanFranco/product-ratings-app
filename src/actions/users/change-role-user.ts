@@ -2,11 +2,11 @@
 
 import prisma from '@/lib/prisma';
 import { validateAdminOrSuperAdmin } from '@/lib/validate-admin';
-import { AdminOrUser } from '@/interfaces/user';
+import { UserResponse } from '@/interfaces/user';
 
 interface UserData {
 	userId: string;
-	role: AdminOrUser;
+	role: UserResponse['role'];
 }
 
 export const changeUserRole = async ({ userId, role }: UserData) => {

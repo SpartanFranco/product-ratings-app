@@ -40,7 +40,7 @@ export default function LoginPage() {
 	return (
 		<div className='bg-background rounded-xl p-8 shadow-xl backdrop-blur-md md:w-[30vw] dark:bg-white/5 dark:text-white'>
 			<h1 className='mb-8 text-center text-4xl font-bold tracking-tight'>
-				Bienvenido
+				Welcome
 			</h1>
 
 			<Form {...form}>
@@ -58,7 +58,7 @@ export default function LoginPage() {
 								</FormLabel>
 								<FormControl>
 									<Input
-										placeholder='Tu nombre de usuario'
+										placeholder='Your username'
 										className='border-white/20 bg-white/10 placeholder:text-slate-400 focus:bg-white/20 dark:border-white/20 dark:bg-white/10 dark:text-white dark:placeholder:text-slate-400 dark:focus:bg-white/20'
 										{...field}
 									/>
@@ -79,7 +79,7 @@ export default function LoginPage() {
 								<FormControl>
 									<Input
 										type='password'
-										placeholder='Tu contraseña secreta'
+										placeholder='Your secret password'
 										className='border-white/20 bg-white/10 placeholder:text-slate-400 focus:bg-white/20 dark:border-white/20 dark:bg-white/10 dark:text-white dark:placeholder:text-slate-400 dark:focus:bg-white/20'
 										{...field}
 									/>
@@ -92,7 +92,7 @@ export default function LoginPage() {
 					{state === 'CredencialSignin' && (
 						<div className='flex items-center gap-2 text-sm text-red-400'>
 							<InfoIcon className='h-5 w-5' />
-							<span>Credenciales inválidas</span>
+							<span>Invalid credentials</span>
 						</div>
 					)}
 
@@ -101,17 +101,17 @@ export default function LoginPage() {
 						disabled={pending}
 						className='w-full bg-amber-500 text-white transition hover:bg-amber-600 dark:bg-amber-500 dark:hover:bg-amber-600'
 					>
-						{pending ? 'Ingresando...' : 'Iniciar Sesión'}
+						{pending ? 'Entering...' : 'Login'}
 					</Button>
 
 					<div className='mt-4 text-center'>
 						<p className='text-sm'>
-							¿No tienes una cuenta?
+							Don't have an account?
 							<Link
 								href='/auth/new-account'
 								className='text-amber-500'
 							>
-								Crear cuenta
+								Create account
 							</Link>
 						</p>
 					</div>

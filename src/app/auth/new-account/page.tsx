@@ -41,16 +41,12 @@ export default function NewAccountPage() {
 
 		setErrorMessage('');
 		await login(username, password);
-
-		// if (res?.ok) {
-		// 	window.location.replace('/');
-		// }
 	};
 
 	return (
 		<div className='bg-background rounded-xl p-8 shadow-xl backdrop-blur-md md:w-[30vw] dark:bg-white/5 dark:text-white'>
 			<h1 className='mb-8 text-center text-4xl font-bold tracking-tight'>
-				Crear cuenta
+				Create account
 			</h1>
 
 			<Form {...form}>
@@ -64,11 +60,11 @@ export default function NewAccountPage() {
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel className='flex items-center gap-2'>
-									Usuario
+									Username
 								</FormLabel>
 								<FormControl>
 									<Input
-										placeholder='Tu nombre de usuario'
+										placeholder='Your username'
 										className='border-white/20 bg-white/10 placeholder:text-slate-400 focus:bg-white/20 dark:border-white/20 dark:bg-white/10 dark:text-white dark:placeholder:text-slate-400 dark:focus:bg-white/20'
 										{...field}
 									/>
@@ -84,12 +80,12 @@ export default function NewAccountPage() {
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel className='flex items-center gap-2'>
-									Contraseña
+									Password
 								</FormLabel>
 								<FormControl>
 									<Input
 										type='password'
-										placeholder='Tu contraseña secreta'
+										placeholder='Your secret password'
 										className='border-white/20 bg-white/10 placeholder:text-slate-400 focus:bg-white/20 dark:border-white/20 dark:bg-white/10 dark:text-white dark:placeholder:text-slate-400 dark:focus:bg-white/20'
 										{...field}
 									/>
@@ -107,17 +103,17 @@ export default function NewAccountPage() {
 						type='submit'
 						className='w-full bg-amber-500 text-white transition hover:bg-amber-600 dark:bg-amber-500 dark:hover:bg-amber-600'
 					>
-						Crear cuenta
+						Create account
 					</Button>
 
 					<div className='mt-4 text-center'>
 						<p className='text-sm'>
-							¿Ya tienes una cuenta?{' '}
+							Already have an account?
 							<Link
 								href='/auth/login'
 								className='text-amber-500'
 							>
-								Iniciar sesión
+								Login
 							</Link>
 						</p>
 					</div>

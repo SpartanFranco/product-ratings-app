@@ -2,11 +2,12 @@
 
 import { auth } from '@/auth.config';
 import prisma from '@/lib/prisma';
+import { sleep } from '@/lib/sleep';
 
 export const getProducts = async () => {
 	const session = await auth();
 	const userId = session?.user?.id;
-
+	await sleep(4000);
 	const total = await prisma.product.count();
 
 	const isProducts = await prisma.product.count();

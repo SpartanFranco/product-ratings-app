@@ -2,11 +2,12 @@
 
 import { auth } from '@/auth.config';
 import prisma from '@/lib/prisma';
+// import { sleep } from '@/lib/sleep';
 
 export const getProductBySlug = async (slug: string) => {
 	const session = await auth();
 	const userId = session?.user.id;
-
+	// await sleep(4000);
 	try {
 		const product = await prisma.product.findFirst({
 			where: { slug },
@@ -14,7 +15,7 @@ export const getProductBySlug = async (slug: string) => {
 				Feedback: {
 					where: {
 						OR: [
-							{ type: 'comment' },
+							{ type: 'comment', isPending: false },
 							userId ? { type: 'rating', userId } : { type: 'rating' }, // Solo si hay sesión
 						],
 					},

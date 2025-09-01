@@ -13,6 +13,20 @@ const compat = new FlatCompat({
 const eslintConfig = [
 	...compat.extends('next/core-web-vitals', 'next/typescript'),
 	...pluginQuery.configs['flat/recommended'],
+
+	{
+		rules: {
+			'@typescript-eslint/no-unused-expressions': 'off',
+			'@typescript-eslint/no-unused-vars': 'off',
+			'@typescript-eslint/no-this-alias': 'off',
+			'@typescript-eslint/no-require-imports': 'off',
+		},
+		// Ignorar archivos generados automáticamente
+		ignorePatterns: [
+			'src/generated/**',
+			'**/*.js', // si quieres ignorar todos los JS generados
+		],
+	},
 ];
 
 export default eslintConfig;

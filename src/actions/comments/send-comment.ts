@@ -7,6 +7,7 @@ export const sendComment = async (productId: string, comment: string) => {
 	if (!session?.user) {
 		return { ok: false, msg: 'You must be logged in to comment' };
 	}
+
 	try {
 		const product = await prisma.product.findFirst({
 			where: { id: productId },
